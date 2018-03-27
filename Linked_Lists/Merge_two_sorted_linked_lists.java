@@ -1,3 +1,44 @@
+// --------------------------------------- RECURSIVE SOLUTION --------------------------------------- //
+
+/*
+  Merge two linked lists 
+  head pointer input could be NULL as well for empty list
+  Node is defined as 
+  class Node {
+     int data;
+     Node next;
+  }
+*/
+
+Node mergeLists(Node headA, Node headB) {
+     // This is a "method-only" submission. 
+     // You only need to complete this method 
+    if(headA == null && headB == null)
+        return null;
+    if(headA != null && headB == null)
+        return headA;
+    if(headA == null && headB != null)
+        return headB;
+    
+    if(headA.data < headB.data)
+        headA.next = mergeLists(headA.next, headB);
+    else{
+        //swap data
+        int tempData = headB.data;
+        headB.data = headA.data;
+        headA.data = tempData;
+        //insert
+        Node node = new Node();
+        node.data = headB.data;
+        node.next = headA.next;
+        headA.next = node;
+        headA.next = mergeLists(headA.next, headB.next);
+    }
+    return headA;
+}
+
+// --------------------------------------- ITERATIVE SOLUTION --------------------------------------- //
+
 /*
   Merge two linked lists 
   head pointer input could be NULL as well for empty list
